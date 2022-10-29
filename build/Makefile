@@ -43,7 +43,7 @@ debug: all
 
 # compile & link for debug GDBversion variable
 #debuggdb: CXXFLAGS += -DDEBUG -ggdb # compile & link
-all: $(APPNAME) bash_color_test $(APPNAME)_test
+all: $(APPNAME) add_files bash_color_test $(APPNAME)_test
 
 # link
 $(APPNAME): $(APPNAME).o main.o  #END
@@ -63,6 +63,15 @@ main.o:
 $(APPNAME)_test: $(APPNAME)_test.o
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(BUILDDIR)/$(APPNAME)_test.o $(BUILDDIR)/$(APPNAME).o $(LDFLAGS) -o $(BUILDDIR)/$(APPNAME)_test
 
+# add files exe
+# link
+add_files: add_files.o main.o  
+	 $(CXX) $(CXXFLAGS) $(BUILDDIR)/add_files.o $(BUILDDIR)/main.o  -o $(BUILDDIR)/add_files
+
+# compile only
+add_files.o:
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/add_files.$(EXT) -o $(BUILDDIR)/add_files.o
+	
 # compile only
 $(APPNAME)_test.o:
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/$(APPNAME)_test.cpp -o $(BUILDDIR)/$(APPNAME)_test.o

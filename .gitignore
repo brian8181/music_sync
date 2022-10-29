@@ -1,0 +1,8 @@
+build/Makefile
+build/music_sync
+music_sync.o
+music_sync_test
+Makefile
+
+addfiles*
+*.o
