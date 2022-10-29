@@ -43,7 +43,7 @@ debug: all
 
 # compile & link for debug GDBversion variable
 #debuggdb: CXXFLAGS += -DDEBUG -ggdb # compile & link
-all: $(APPNAME) add_files bash_color_test $(APPNAME)_test
+all: $(APPNAME) add_files bash_color_test
 
 # link
 $(APPNAME): $(APPNAME).o main.o  #END
@@ -104,11 +104,9 @@ install: man
 .PHONY: clean
 clean:
 
-	rm $(BUILDDIR)/*.o
-
-	# @if [ -f $(BUILDDIR)/$(APPNAME) ]; then\
-	# 	rm $(BUILDDIR)/$(APPNAME);\
-	# fi
+	@if [ -f $(BUILDDIR)/$(APPNAME) ]; then\
+		rm $(BUILDDIR)/$(APPNAME);\
+	fi
 
 	# @if [ -f $(BUILDDIR)/$(APPNAME)_test -a -f $(BUILDDIR)/bash_color_test -a -f $(BUILDDIR)/*.o -a -f $(BUILDDIR)/*.xml ]; then\
 	# 	rm $(BUILDDIR)/$(APPNAME)_test $(BUILDDIR)/bash_color_test;\
@@ -116,13 +114,12 @@ clean:
 	# 	rm $(BUILDDIR)/*.xml  
 	# fi
 	
-	# @if [ -f $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz ]; then\
-	# 	rm $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz;\
-	# fi
+	@if [ -f $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz ]; then\
+		rm $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz;\
+	fi
 
 	#rm -f $(BUILDDIR)/$(APPNAME) $(BUILDDIR)/*.o $(BUILDDIR)/$(APPNAME)_test $(BUILDDIR)/bash_color_test
 	#rm -f $(BUILDDIR)/*.xml $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz
-
 
 # delete all auto generated files
 .PHONY: distclean
