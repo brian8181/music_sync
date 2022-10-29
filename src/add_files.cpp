@@ -1,20 +1,18 @@
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <getopt.h>
 #include "main.hpp"
-#include "music_sync.hpp"
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include "music_sync.hpp"
 
 using namespace std;
-
  
 int parse_options(int argc, char* argv[])
 {
-    if(argc < 4)
-        return -1;
+    // if(argc < 2)
+    //     return -1;
         
     string music_lib_path = "/home/brian/Music";
     const std::filesystem::path sandbox{music_lib_path};

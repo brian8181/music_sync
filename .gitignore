@@ -1,11 +1,3 @@
-
-# exe
-build/Makefile
-build/Makefile.*
-build/music_sync
-build/add_files
-build/bash_color_test
-build/bash_color_test.o
-
-# object files
-*.o
+# build output
+build
+!build/Makefile
