@@ -2,34 +2,31 @@
 #include <fstream>
 #include <string>
 #include <list>
+#include <algorithm>
 
 using namespace std;
 
-void get_lines(string path, list<string>& lines);
+list<string> get_lines(string path);
 
 int parse_options(int argc, char* argv[])
 {
 
-    list<string> updates;
-    list<string> master;
-
-    string updates_path = argv[1];
-    string master_path = argv[2];
-
-    get_lines(updates_path, updates);
-    get_lines(master_path, master);
-
+    list<string> updates = get_lines(argv[1]);
+    list<string> master = get_lines(argv[2]);
+ 
     list<string>::iterator end = updates.end();
+    //list<string>::iterator beg = updates.begin();
     for(list<string>::iterator iter; iter != end; ++iter)
     {
-        
+        //list<string> find_iter = std::find(master.begin(), master.end(), *iter);
     }
 
     return 0;
 }
 
-void get_lines(string path, list<string>& lines)
+list<string> get_lines(string path)
 {
+    list<string> lines;
     std::ifstream file(path);
     if (file.is_open())
     {
@@ -40,7 +37,5 @@ void get_lines(string path, list<string>& lines)
         }
         file.close();
     }
+    return lines;
 }
-
-
-
