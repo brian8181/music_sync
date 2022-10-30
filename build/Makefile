@@ -29,6 +29,8 @@ ROOTDIR  = ..
 BUILDDIR = .
 SRCDIR = ../src
 OBJDIR = .
+# OBJ_COUNT=$(shell ls *.o | wc -l 2> /dev/null)
+# OBJ_COUNT=$(shell ls *.o | wc -l)   
 
 # compile & link for debug
 #debug: CXXFLAGS += -DDEBUG -g
@@ -36,7 +38,7 @@ debug: all
 
 # compile & link for debug GDBversion variable
 #debuggdb: CXXFLAGS += -DDEBUG -ggdb # compile & link
-all: $(APPNAME) add_files bash_color_test
+all: $(APPNAME) add_files readlines bash_color_test
 
 # link
 $(APPNAME): $(APPNAME).o main.o  #END
@@ -64,6 +66,13 @@ add_files: add_files.o main.o
 # compile only
 add_files.o:
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/add_files.$(EXT) -o $(BUILDDIR)/add_files.o
+
+readlines: readlines.o main.o  
+	 $(CXX) $(CXXFLAGS) $(BUILDDIR)/readlines.o $(BUILDDIR)/main.o  -o $(BUILDDIR)/readlines
+
+# compile only
+readlines.o:
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/readlines.$(EXT) -o $(BUILDDIR)/readlines.o
 	
 # compile only
 $(APPNAME)_test.o:
@@ -96,24 +105,17 @@ install: man
 # delete object files & app executable
 .PHONY: clean
 clean:
-
-	@if [ -f $(BUILDDIR)/$(APPNAME) ]; then\
-		rm $(BUILDDIR)/$(APPNAME);\
-	fi
-
-	# @if [ -f $(BUILDDIR)/$(APPNAME)_test -a -f $(BUILDDIR)/bash_color_test -a -f $(BUILDDIR)/*.o -a -f $(BUILDDIR)/*.xml ]; then\
-	# 	rm $(BUILDDIR)/$(APPNAME)_test $(BUILDDIR)/bash_color_test;\
-	# 	rm $(BUILDDIR)/*.o
-	# 	rm $(BUILDDIR)/*.xml  
-	# fi
+	-rm -f *.o
+	-rm -f $(BUILDDIR)/$(APPNAME)
+	-rm -f $(BUILDDIR)/$(APPNAME)_test 
+	-rm -f $(BUILDDIR)/add_files
+	-rm -f $(BUILDDIR)/add_files_test
+	-rm -f $(BUILDDIR)/readlines
+	-rm -f $(BUILDDIR)/bash_color_test
+	-rm -f $(BUILDDIR)/*.o
+	-rm -f $(BUILDDIR)/*.xml  
+	-rm -f $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz
 	
-	@if [ -f $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz ]; then\
-		rm $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz;\
-	fi
-
-	#rm -f $(BUILDDIR)/$(APPNAME) $(BUILDDIR)/*.o $(BUILDDIR)/$(APPNAME)_test $(BUILDDIR)/bash_color_test
-	#rm -f $(BUILDDIR)/*.xml $(BUILDDIR)/$(APPNAME).$(BUILD_VERSION).tar.gz
-
 # delete all auto generated files
 .PHONY: distclean
 distclean: clean
